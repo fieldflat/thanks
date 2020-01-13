@@ -1,7 +1,7 @@
 package db
 
 import (
-	"github.com/asuforce/gin-gorm-tutorial/entity"
+	"../entity"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres" // Use PostgreSQL in gorm
 )
