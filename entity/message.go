@@ -5,4 +5,5 @@ type Message struct {
 	ID      uint   `json:"id"`
 	Content string `json:"content" binding:"required"`
 	UserID  uint   `json:"user_id" binding:"required"`
+	ToID    uint   `json:"to_id" binding:"required"`
 }
