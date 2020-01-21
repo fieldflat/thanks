@@ -3,8 +3,8 @@ package user
 import (
 	"github.com/gin-gonic/gin"
 
-	"../db"
-	"../entity"
+	"../../db"
+	"../../entity"
 )
 
 // Service procides user's behavior

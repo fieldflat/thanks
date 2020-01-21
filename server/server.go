@@ -1,9 +1,9 @@
 package server
 
 import (
+	message "../controller/message_controller"
+	user "../controller/user_controller"
 	"github.com/gin-gonic/gin"
-
-	user "../controller"
 )
 
 // Init is initialize server
@@ -23,6 +23,16 @@ func router() *gin.Engine {
 		u.POST("", ctrl.Create)
 		u.PUT("/:id", ctrl.Update)
 		u.DELETE("/:id", ctrl.Delete)
+	}
+
+	m := r.Group("/messages")
+	{
+		ctrl := message.Controller{}
+		m.GET("", ctrl.Index)
+		m.GET("/:id", ctrl.Show)
+		m.POST("", ctrl.Create)
+		m.PUT("/:id", ctrl.Update)
+		m.DELETE("/:id", ctrl.Delete)
 	}
 
 	return r
