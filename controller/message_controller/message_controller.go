@@ -14,11 +14,44 @@ type Controller struct{}
 // Index action: GET /messages
 func (pc Controller) Index(c *gin.Context) {
 	var s message.Service
-	p, err := s.GetAll()
+	userID, err1 := c.GetQuery("user_id")
 
-	if err != nil {
+	// クエリパラメータの指定がない場合
+	if !err1 {
+		p, err := s.GetAll()
+		if err != nil {
+			c.AbortWithStatus(404)
+			fmt.Println(err)
+		} else {
+			c.JSON(200, p)
+		}
+	} else { // クエリパラメータの指定がある場合
+		p, err2 := s.GetByUserID(userID)
+
+		if err2 != nil {
+			c.AbortWithStatus(404)
+			fmt.Println(err2)
+		} else {
+			c.JSON(200, p)
+		}
+	}
+}
+
+// GetMessagesByUserID action: GET /messages?user_id=***
+func (pc Controller) GetMessagesByUserID(c *gin.Context) {
+	var s message.Service
+	userID, err1 := c.GetQuery("user_id")
+
+	if !err1 {
 		c.AbortWithStatus(404)
-		fmt.Println(err)
+		fmt.Println(err1)
+	}
+
+	p, err2 := s.GetByUserID(userID)
+
+	if err2 != nil {
+		c.AbortWithStatus(404)
+		fmt.Println(err2)
 	} else {
 		c.JSON(200, p)
 	}

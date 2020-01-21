@@ -53,6 +53,18 @@ func (s Service) GetByID(id string) (Message, error) {
 	return m, nil
 }
 
+// GetByUserID is get Messages with userID
+func (s Service) GetByUserID(userID string) ([]Message, error) {
+	db := db.GetDB()
+	var m []Message
+
+	if err := db.Where("user_id = ?", userID).Find(&m).Error; err != nil {
+		return m, err
+	}
+
+	return m, nil
+}
+
 // UpdateByID is update a User
 func (s Service) UpdateByID(id string, c *gin.Context) (Message, error) {
 	db := db.GetDB()
